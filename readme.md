@@ -1,4 +1,4 @@
-## Torr-CLI 
+## t-stream 
 Stream your favorite torrent in your terminal
 
 
