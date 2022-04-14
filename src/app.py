@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 import sys
 import subprocess
 
@@ -29,7 +31,7 @@ if len(sys.argv) > 1:
 else:
     query = Prompt.ask("What you want watch today ?")
 
-print("  Finding 😇" , end="\r")
+print("  Finding torrents" , end="\r")
 
 with Spinner():
     movie_list = pirate(query=query)["movie_info"]
@@ -40,7 +42,8 @@ if len(movie_list) == 0:
 
 write_table(movie_list)
 
-movie_ind = Prompt.ask("Select your fav: " , default="1")
+movie_ind = Prompt.ask("Select your fav" , default="1")
+
 
 mag_url = movie_list[int(movie_ind)-1]["magnet_url"]
 
