@@ -26,7 +26,11 @@ def greet_bye():
     print("\nsee ya 👋")
 
 def stream(mag_url):
-    subprocess.run(["peerflix" , mag_url , "--mpv"])
+    if sys.platform == "linux":
+        player = "--mpv"
+    else:
+        player = "--vlc"
+    subprocess.run(["peerflix" , mag_url , player])
 
 
 console = Console()
@@ -36,7 +40,7 @@ try:
     if len(sys.argv) > 1:
         query = "".join(sys.argv[1:])
     else:
-        query = Prompt.ask("What you want watch today ?")
+        query = Prompt.ask("What you want to watch today ?")
 
     print("  Finding torrents" , end="\r")
 
@@ -60,6 +64,7 @@ except KeyboardInterrupt:
     greet_bye()
     exit(1)
 
+print("Enjoy! Less seeds may take more time")
 stream(mag_url)
 
 
