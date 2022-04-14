@@ -9,6 +9,11 @@ spinners = [ ["⣾","⣽","⣻","⢿","⡿","⣟","⣯","⣷"] , ["✶","✸","�
 
 fav = random.choice(spinners)
 
+def remove_cursor():
+    sys.stdout.write("\033[?25l")
+
+def add_cursor():
+    sys.stdout.write("\033[?25h")
 
 class Spinner:
     busy = False
@@ -24,14 +29,16 @@ class Spinner:
         if delay and float(delay): self.delay = delay
 
     def spinner_task(self):
-        sys.stdout.write("\033[?25l\u001b[35;1m")
+        remove_cursor()
+        sys.stdout.write("\u001b[35;1m")
         while self.busy:
             sys.stdout.write(next(self.spinner_generator))
             sys.stdout.flush()
             time.sleep(self.delay)
             sys.stdout.write('\b')
             sys.stdout.flush()
-        sys.stdout.write("\u001b[0m\033[?25h")
+        sys.stdout.write("\u001b[0m")
+        add_cursor()
 
     def __enter__(self):
         self.busy = True
