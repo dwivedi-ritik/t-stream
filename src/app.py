@@ -50,7 +50,7 @@ try:
     write_table(movie_list)
 
     movie_ind = Prompt.ask("Select your fav" , default="1")
-    if movie_ind >= len(movie_list):
+    if int(movie_ind) >= len(movie_list):
         mag_url = movie_list[-1]["magnet_url"]
     else:
         mag_url = movie_list[int(movie_ind)-1]["magnet_url"]
