@@ -64,7 +64,7 @@ except KeyboardInterrupt:
     greet_bye()
     exit(1)
 
-print("Enjoy! Less seeds may take more time")
+print("Enjoy! Less seeds may take more time\nStreaming will start after 1% of downloading")
 stream(mag_url)
 
 
