@@ -5,7 +5,8 @@ Stream your favorite torrent in your terminal
 ### How to use ?
 - Install all dependecy and library by running`setup.sh`.
 - restart your terminal
-- run `t-stream`
+- run `t-stream` 
+- you can pass torrent name in command line argument in `t-stream`
 
 ### Dependencies
 - [peerflix](https://github.com/mafintosh/peerflix)
