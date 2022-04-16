@@ -13,11 +13,12 @@ def write_table(movie_list):
     table = Table(show_header=True, header_style="bold magenta")
     table.add_column("ID", width=12)
     table.add_column("Title")
+    table.add_column("Size", justify="right")
     table.add_column("Seeders", justify="right")
     table.add_column("Leeches", justify="right")
 
     for i , obj in enumerate( movie_list ):
-        table.add_row(str(i+1) , obj["title"] , str(obj["seeders"]) , str(obj["leeches"]))
+        table.add_row(str(i+1) , obj["title"] , str(obj["size"]),str(obj["seeders"]) , str(obj["leeches"]))
 
     console.print(table)
     return

@@ -1,7 +1,8 @@
 #! /usr/bin/python
+from pprint import pprint
+import unicodedata
 
 import requests
-from pprint import pprint
 from bs4 import BeautifulSoup
 
 def get_json(soup):
@@ -12,7 +13,13 @@ def get_json(soup):
         "movie_info":[]
     }
     seeders = []
+    movie_sizes = []
+
     for el in table.find_all("td"):
+        if el.font:
+            size = el.font.text.split(",")[1][6:]
+            movie_sizes.append(size)
+
         if el.div and el.div.a:
             json_obj["movie_info"].append({
                 "title": el.div.text.strip("\n"),
@@ -26,6 +33,10 @@ def get_json(soup):
         json_obj["movie_info"][k]["seeders"] = seeders[i]
         json_obj["movie_info"][k]["leeches"] = seeders[i+1]
         k += 1
+
+    for i , _ in enumerate(json_obj["movie_info"]):
+        json_obj["movie_info"][i]["size"] = unicodedata.normalize("NFKD" ,  movie_sizes[i])
+
     return json_obj
 
 def pirate(query , top = False):
