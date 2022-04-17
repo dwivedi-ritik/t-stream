@@ -1,6 +1,9 @@
 #! /usr/bin/python
 import sys
 import subprocess
+import json
+import os
+from pathlib import Path
 
 from rich.console import Console
 from rich.table import Table
@@ -26,18 +29,35 @@ def write_table(movie_list):
 def greet_bye():
     print("\nsee ya 👋")
 
+
+def parse_config():
+    app_dir = "/".join(os.path.realpath(__file__).split("/")[:-2])
+    config_path = os.path.join(app_dir , "config.json")
+
+    default_value = ("webtorrent" , "mpv")
+    players = ["mpv" , "vlc"]
+    clients = ["webtorrent" , "peerflix"]
+
+    if not Path(config_path).is_file():
+        return default_value
+
+    with open(config_path) as f:
+        config = json.loads(f.read())
+    
+    if config["config"]["player"] and config["config"]["client"]:
+        if config["config"]["player"] in players and config["config"]["client"] in clients:
+            return (  config["config"]["client"] , config["config"]["player"] )
+    
+    return default_value
+        
 def stream(mag_url):
-    if sys.platform == "linux":
-        player = "--mpv"
-    else:
-        player = "--vlc"
-    subprocess.run(["peerflix" , mag_url , player])
+    client , player = parse_config()
+    subprocess.run([client , mag_url , f"--{player}" ])
 
 
 console = Console()
 
 try:
-        
     if len(sys.argv) > 1:
         query = "".join(sys.argv[1:])
     else:
