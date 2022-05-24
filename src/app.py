@@ -61,12 +61,15 @@ try:
     if len(sys.argv) > 1:
         query = "".join(sys.argv[1:])
     else:
-        query = Prompt.ask("What you want to watch today ?")
+        query = Prompt.ask("1 for top 100\nWhat you want to watch today ?")
 
     print("  Finding torrents" , end="\r")
 
     with Spinner():
-        movie_list = pirate(query=query)["movie_info"]
+        if query == "1":
+            movie_list = pirate()["movie_info"]
+        else:
+            movie_list = pirate(query=query)["movie_info"]
 
     if len(movie_list) == 0:
         greet_bye()
