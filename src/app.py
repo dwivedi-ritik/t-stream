@@ -61,7 +61,7 @@ try:
     if len(sys.argv) > 1:
         query = "".join(sys.argv[1:])
     else:
-        query = Prompt.ask("1 for top 100\nWhat you want to watch today ?")
+        query = Prompt.ask("What you want to watch today ?")
 
     print("  Finding torrents" , end="\r")
 

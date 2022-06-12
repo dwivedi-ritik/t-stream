@@ -44,7 +44,6 @@ def pirate(query = None):
         url = "https://tpb.party/top/200"
     else:
         url = f"https://tpb.party/search/{query}"
-    print(url)
     res = requests.get(url)
     if res.status_code != 200:
         raise ValueError("Ops didn't get valid response")
